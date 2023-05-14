@@ -81,3 +81,28 @@ propertyController.post('/', verifyToken, async (req, res) => {
         return res.status(500).json(error)
     }
 })
+
+// Update a property
+propertyController.put('/:id', verifyToken, async (req, res) => {
+    try {
+        const property = await Property.findById(req.params.id)
+        if (property.currentOwner.toString() !== req.user.id) {
+            throw new Error("You are not allowed to update other people's properties")
+        }
+        else{
+            const updatedProperty = await Property.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+            
+            )}
+
+        
+        
+
+
+        return res.status(200).json(updatedProperty)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}) 
