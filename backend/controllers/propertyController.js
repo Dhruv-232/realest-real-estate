@@ -5,7 +5,9 @@ const verifyToken = require("../middlewares/verifyToken")
 // get all 
 propertyController.get('/getAll', async(req, res) => {
     try {
-        const properties = await Properties.find({})
+        const properties = await Property.find({})
+
+        return res.status(200).json(properties)
     }
     catch (error) {
         return res.status(500).json(error.message)
