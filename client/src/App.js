@@ -7,6 +7,8 @@ import Properties from './components/properties/Properties';
 import PropertyDetail from './components/propertyDetail/PropertyDetail';
 import Signin from './components/signin/Signin';
 import Signup from './components/signup/Signup';
+import { useSelector } from 'react-redux'
+
 
 function App() {
   return (
