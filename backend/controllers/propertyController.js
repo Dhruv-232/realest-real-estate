@@ -19,7 +19,7 @@ propertyController.get('/find/featured', async(req, res) => {
     try {
         const featuredProperties = await Property.find({featured: true}).populate('Current Owner', '-password')
 
-        return res.status(200). json(featuredProperties)
+        return res.status(200).json(featuredProperties)
     }
     catch (error) {
         return res.status(500).json(error.message)
@@ -73,6 +73,7 @@ propertyController.get('/find/:id', async (req, res) => {
 
 // Create a property
 propertyController.post('/', verifyToken, async (req, res) => {
+    console.log("Post / route");
     try {
         const newProperty = await Property.create({ ...req.body, currentOwner: req.user.id })
 
@@ -96,13 +97,28 @@ propertyController.put('/:id', verifyToken, async (req, res) => {
             { new: true }
             
             )}
-
-        
-        
-
-
         return res.status(200).json(updatedProperty)
     } catch (error) {
         return res.status(500).json(error)
     }
 }) 
+
+// delete a property
+propertyController.delete('/:id', verifyToken, async (req, res) => {
+    try {
+        const property = await Property.findById(req.params.id)
+        if (property.currentOwner.toString() !== req.user.id) {
+            throw new Error("You are not allowed to delete other people properties")
+        }
+        else{
+            await property.delete()
+
+        return res.status(200).json({ msg: "Successfully deleted property" })
+        }
+        
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+})
+
+module.exports = propertyController

@@ -44,9 +44,9 @@ const PropertySchema = new mongoose.Schema({
         required: true,
         min: 1
     },
-    bookmarkedUsers: {
-        type: [String],
-        default: []
+    featured: {
+        type: Boolean, 
+        default: false,
     }
 }, {timestamps: true})
 

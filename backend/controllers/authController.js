@@ -15,7 +15,7 @@ authController.post('/register', async(req,res) => {
         const newUser = await User.create({...req.body, password: hashedPassword})
 
         const {password, ...others} = newUser._doc
-        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: '4h'})
+        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: '5d'})
 
         return res.status(201).json({others,token})
     } catch(error) {
@@ -36,7 +36,7 @@ authController.post('/login', async(req, res) => {
             throw new Error("Wrong credentials!")
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '4h'})
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '5d'})
         const {password, ...others} = user._doc
 
         return res.status(200).json({others, password})
