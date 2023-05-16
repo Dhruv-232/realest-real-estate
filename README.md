@@ -2,11 +2,11 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Technology](#Technology)
+- [Technology](#technology)
 - [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
-- [Contribution](#contribution)
+- [Link](#link)
+- [Contact](#contact)
 
 
 ## Description:
